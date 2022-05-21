@@ -13,7 +13,7 @@ public class PagesController {
 		
 		modelmap.put("toto", name);
 		System.out.println("\n \n \n" + name +"\n \n \n");
-		return "pages/home";
+		return "index";
 	}
 	
 }

@@ -1,45 +1,58 @@
 package org.casjedcem.FarmShop.Model;
 
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
+
 
 @Data
 @Entity
-@Table(name="category")
-@EqualsAndHashCode(of = {"id", "name"})
+@Table(name="products")
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Category implements Serializable {
+public class Product implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
-    private String thumbnails;
+
     private String description;
 
+    private double currentPrice;
 
-    @OneToMany(mappedBy = "category")
-    private Collection<Product> products;
+    private boolean promotion;
 
-
-    public Category(String name, String thumbnails, String description, Collection<Product> products) {
-        super();
-        this.name = name;
-        this.thumbnails = thumbnails;
-        this.description = description;
-        this.products = products;
-    }
+    private boolean available;
 
 
+    private String thumbnails;
+
+    private int quantity;
+
+    @ManyToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private  Category category;
+
+    @ManyToOne(optional = false)
+    private Productor productor;
+
+    /**
+     * Your methode to add src path of thumbnail file
+     * @param src
+     * @return return value should be String
+     */
     public String addThumbnail(String src) {
 
         List<String> srcs = Arrays.asList(thumbnails.split(";"));
@@ -70,12 +83,4 @@ public class Category implements Serializable {
 
 
 
-
 }
-
-
-
-
-
-
-

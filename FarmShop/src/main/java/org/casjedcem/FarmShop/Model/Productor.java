@@ -1,4 +1,4 @@
 package org.casjedcem.FarmShop.Model;
 
-public class Produit {
+public class Productor {
 }
